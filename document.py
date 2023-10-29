@@ -58,6 +58,9 @@ def update_readme(
     codes_cvars: dict[str, list[sp_cvars.Cvar]],
     doc: marko.block.Document,
     header_patterns,
+    format_filename: str,
+    format_cvarname: str,
+    format_cvarinfo: str,
 ) -> str:
     for i, child in enumerate(doc.children, start=1):
         if not isinstance(child, marko.block.Heading):
@@ -74,7 +77,7 @@ def update_readme(
     rawtext = ""
     for filename, cvars in codes_cvars.items():
         if len(codes_cvars) > 1:
-            rawtext += f"### {filename}\n"
+            rawtext += format_filename.replace("$a", filename)
         for cvar in cvars:
             skip = False
             for j, (name, val) in enumerate(cvar.items()):
@@ -85,7 +88,7 @@ def update_readme(
 
                 val = val.lstrip('"').rstrip('"')
                 if j == 0:
-                    rawtext += f"* {val}\n"
+                    rawtext += format_cvarname.replace("$a", val)
                 else:
                     if name in (
                         sp_cvars.CvarName.HAS_MIN,
@@ -95,7 +98,8 @@ def update_readme(
                         continue  # Skip the implicit "has min/max" values
                     if name == sp_cvars.CvarName.FLAGS and val == "0":
                         continue  # Skip no bit flags
-                    rawtext += f"  * {name}: `{val}`\n"
+                    rawtext += format_cvarinfo.replace("$a", name).replace("$b", val)
+
     p = marko.block.Paragraph([])
     p.children.append(marko.inline.RawText(rawtext))  # type: ignore
     doc.children.insert(i, p)  # type: ignore
@@ -141,6 +145,21 @@ def main() -> None:
         help="Encoding to use for file read/write operations.",
         default="utf-8",
     )
+    parser.add_argument(
+        "--format-filename",
+        help="Formatting for the filename blob, with placeholder $a",
+        default="### $a\n",
+    )
+    parser.add_argument(
+        "--format-cvarname",
+        help="Formatting for the cvar name blob, with placeholder $a",
+        default="* $a\n",
+    )
+    parser.add_argument(
+        "--format-cvarinfo",
+        help="Formatting for the cvar info blob, with placeholder $a $b",
+        default="  * $a: `$b`\n",
+    )
     args = parser.parse_args()
 
     path_codes: list[os.PathLike | str] = []
@@ -179,6 +198,9 @@ def main() -> None:
         codes_cvars,
         doc,
         pattern_headers,
+        args.format_filename,
+        args.format_cvarname,
+        args.format_cvarinfo,
     )
     if args.dry_run:
         print(doc_output)
