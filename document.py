@@ -112,7 +112,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--cwd",
-        help="Current working directory.",
+        help="Current working directory. Note that the default (.) is always treated as this Python script's directory, regardless of actual CWD; you must set the full path explicitly if this behaviour is undesired.",
         default=".",
     )
     parser.add_argument(
@@ -160,6 +160,7 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    # HACK: treat "." as this file's path (see the args.cwd docs)
     working_dir = (
         os.path.dirname(os.path.realpath(__file__)) if args.cwd == "." else args.cwd
     )
