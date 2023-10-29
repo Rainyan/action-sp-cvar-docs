@@ -80,7 +80,8 @@ class Cvar:
     def __repr__(self) -> str:
         return repr(vars(self))
 
-    def keys(self):
+    @staticmethod
+    def keys():
         return [
             CvarName.NAME,
             CvarName.DEFAULT,
