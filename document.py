@@ -13,29 +13,6 @@ from marko.md_renderer import MarkdownRenderer
 DOC_HEADER_PATTERNS: list[str] = []
 
 
-def find_cvar_header(tag):
-    global DOC_HEADER_PATTERNS
-    is_header = lambda t: t.name in (f"h{n}" for n in range(1, 6 + 1))
-    if not is_header(tag):
-        return False
-    if not any((p.lower() in tag.string.lower() for p in DOC_HEADER_PATTERNS)):
-        return False
-    for a in tag.next_siblings:
-        if isinstance(a, NavigableString) and len(a.string.strip()) != 0:
-            return False
-        if not isinstance(a, Tag):
-            continue
-        if is_header(a):
-            break
-        if a.string is None:
-            a.decompose()  # Header already has content; remove old
-            break
-        if len(a.string.strip()) != 0:
-            return False
-        break
-    return True
-
-
 def update_readme(cvars: list[sp_cvars.Cvar], input: str) -> str:
     if len(cvars) == 0:
         return input

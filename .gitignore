@@ -1,0 +1,4 @@
+*.smx
+
+Pipfile
+Pipfile.lock
