@@ -3,7 +3,19 @@
 import os
 import re
 import sys
+from enum import StrEnum
 from typing import Any
+
+
+class CvarName(StrEnum):
+    NAME = "Name"
+    DEFAULT = "Default value"
+    DESCRIPTION = "Description"
+    FLAGS = "Bit flags"
+    HAS_MIN = "Has min"
+    MIN = "Min"
+    HAS_MAX = "Has max"
+    MAX = "Max"
 
 
 class Cvar:
@@ -67,14 +79,14 @@ class Cvar:
 
     def keys(self):
         return [
-            "Name",
-            "Default value",
-            "Description",
-            "Bit flags",
-            "Has min",
-            "Min",
-            "Has max",
-            "Max",
+            CvarName.NAME,
+            CvarName.DEFAULT,
+            CvarName.DESCRIPTION,
+            CvarName.FLAGS,
+            CvarName.HAS_MIN,
+            CvarName.MIN,
+            CvarName.HAS_MAX,
+            CvarName.MAX,
         ]
 
     def values(self):

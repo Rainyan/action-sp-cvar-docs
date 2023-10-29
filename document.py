@@ -60,7 +60,10 @@ def update_readme(cvars: list[sp_cvars.Cvar], input: str) -> str:
             if j == 0:
                 rawtext += f"* {val}\n"
             else:
-                if name in ("Has min", "Has max"):
+                if name in (
+                    sp_cvars.CvarName.HAS_MIN,
+                    sp_cvars.CvarName.HAS_MAX,
+                ):
                     skip = not trueish(val)
                     continue  # Skip the implicit "has mins/maxs" values
                 if name == "Bit flags" and val == "0":  # Skip no bit flags
