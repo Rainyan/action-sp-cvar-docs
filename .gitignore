@@ -1,4 +1,9 @@
+*.inc
 *.smx
+*.sp
+
+*.md
+!README.md
 
 Pipfile
 Pipfile.lock

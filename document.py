@@ -8,10 +8,10 @@ import re
 import sys
 from ast import literal_eval
 
-import sp_cvars
-
 import marko
 from marko.md_renderer import MarkdownRenderer
+
+import sp_cvars
 
 
 VERSION = "0.1.0"
