@@ -4,7 +4,6 @@ import os
 import re
 import sys
 from enum import StrEnum
-from typing import Any
 
 
 class CvarName(StrEnum):
