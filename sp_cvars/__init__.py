@@ -12,7 +12,7 @@ class Cvar:
 
         input = input.replace("\\\n", " ")  # C line continuations
 
-        parms = []
+        parms: list[str] = []
         add_parm = lambda a, b: a.append(b if b == "_" else f'"{b}"')
 
         in_str = False

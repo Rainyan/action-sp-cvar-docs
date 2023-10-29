@@ -1,10 +1,1 @@
-beautifulsoup4==4.12.2
-markdownify==0.11.6
 marko==2.0.1
-mypy==1.6.1
-mypy-extensions==1.0.0
-six==1.16.0
-soupsieve==2.5
-types-beautifulsoup4==4.12.0.7
-types-html5lib==1.1.11.15
-typing_extensions==4.8.0
