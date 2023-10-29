@@ -77,6 +77,9 @@ class Cvar:
     def __iter__(self):
         return self
 
+    def __repr__(self) -> str:
+        return repr(vars(self))
+
     def keys(self):
         return [
             CvarName.NAME,
@@ -144,9 +147,6 @@ class Cvar:
     @property
     def max(self) -> str:
         return self._max
-
-    def __repr__(self) -> str:
-        return repr(vars(self))
 
 
 def parse_cvars(filepath: os.PathLike | str) -> list[Cvar]:
