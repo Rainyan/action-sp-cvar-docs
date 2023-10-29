@@ -59,22 +59,14 @@ def update_readme(
     doc: marko.block.Document,
     header_patterns,
 ) -> str:
-    it = iter(doc.children)
-    i = 0
-    target = None
-    while True:
-        try:
-            child = next(it)
-            i += 1
-            if not isinstance(child, marko.block.Heading):
-                continue
-            text = md.renderer.render_children(child)  # type: ignore
-            if header_patterns.fullmatch(text):
-                target = child  # Find target header
-                break
-        except StopIteration:
+    for i, child in enumerate(doc.children, start=1):
+        if not isinstance(child, marko.block.Heading):
+            continue
+        text = md.renderer.render_children(child)  # type: ignore
+        if header_patterns.fullmatch(text):
+            target = child  # Find target header
             break
-    if target is None:
+    else:
         return md.render(doc)
 
     trueish = lambda a: (a.isnumeric() and a != "0") or a.lower() == "true"
