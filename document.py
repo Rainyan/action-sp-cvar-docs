@@ -93,7 +93,7 @@ def update_readme(
                         sp_cvars.CvarName.HAS_MIN,
                         sp_cvars.CvarName.HAS_MAX,
                     ):
-                        skip = not trueish(val)
+                        skip = not trueish(val)  # Skip when no min/max set
                         continue  # Skip the implicit "has min/max" values
                     if name == sp_cvars.CvarName.FLAGS and val == "0":
                         continue  # Skip no bit flags
