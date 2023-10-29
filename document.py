@@ -6,7 +6,6 @@ import argparse
 import os
 import re
 import sys
-from ast import literal_eval
 from typing import Optional
 
 import marko
