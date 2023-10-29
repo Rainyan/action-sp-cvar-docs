@@ -138,7 +138,7 @@ def main() -> None:
     parser.add_argument(
         "--dry-run",
         action="store_true",
-        help="If set, print the output instead of writing to file.",
+        help="If set, print the output to stdout instead of writing to file.",
     )
     parser.add_argument(
         "--encoding",

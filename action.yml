@@ -12,7 +12,7 @@ inputs:
     description: 'RegEx pattern for documentation headers to match for the location of the cvar docs placeholder.'
     default: '([Cc]vars|[Cc]on[Vv]ars|[Cc]onsole [Vv]ariables)'
   dry_run:
-    description: 'Whether to print the output instead of writing to file.'
+    description: 'Whether to print the output to stdout instead of writing to file.'
     default: false
   encoding:
     description: 'Encoding to use for file read/write operations.'
