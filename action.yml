@@ -14,6 +14,9 @@ inputs:
   dry_run:
     description: 'Whether to print the output instead of writing to file.'
     default: false
+  encoding:
+    description: 'Encoding to use for file read/write operations.'
+    default: 'utf-8'
 runs:
   using: 'composite'
   steps:
