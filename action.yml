@@ -21,10 +21,10 @@ inputs:
     description: 'Formatting for the filename blob, with placeholder $a. This is skipped if parsing one single code file.'
     default: '### $a\n'
   format_cvarname:
-    description: 'Formatting for the cvar name blob, with placeholder $a'
+    description: 'Formatting for the cvar name blob, with placeholder $a.'
     default: '* $a\n'
   format_cvarinfo:
-    description: 'Formatting for the cvar info blob, with placeholder $a (property name) $b (property default value)'
+    description: 'Formatting for the cvar info blob, with placeholder $a (property name), and $b (property default value).'
     default: '  * $a: `$b`\n'
 runs:
   using: 'composite'

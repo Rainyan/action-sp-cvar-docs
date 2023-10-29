@@ -152,12 +152,12 @@ def main() -> None:
     )
     parser.add_argument(
         "--format-cvarname",
-        help="Formatting for the cvar name blob, with placeholder $a",
+        help="Formatting for the cvar name blob, with placeholder $a.",
         default="* $a\n",
     )
     parser.add_argument(
         "--format-cvarinfo",
-        help="Formatting for the cvar info blob, with placeholder $a (property name) $b (property default value)",
+        help="Formatting for the cvar info blob, with placeholder $a (property name), and $b (property default value).",
         default="  * $a: `$b`\n",
     )
     args = parser.parse_args()
