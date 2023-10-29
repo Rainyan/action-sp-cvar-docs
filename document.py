@@ -147,12 +147,12 @@ def main() -> None:
     )
     parser.add_argument(
         "--format-filename",
-        help="Formatting for the filename blob, with placeholder $a. This is skipped if parsing one single code file.",
+        help="Formatting for the code file name, with placeholder $a. This is skipped if parsing one single code file.",
         default="### $a\n",
     )
     parser.add_argument(
         "--format-cvarname",
-        help="Formatting for the cvar name blob, with placeholder $a.",
+        help="Formatting for the cvar name, with placeholder $a.",
         default="* $a\n",
     )
     parser.add_argument(
