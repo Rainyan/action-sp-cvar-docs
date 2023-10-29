@@ -42,8 +42,17 @@ runs:
     - name: Update documentation files
     - shell: bash
       run: |
-        # TODO: use dry-run option correctly
-        python document.py "$code_patterns" "$doc_patterns" "$header_patterns"
+        if $dry_run; then
+            dryrunarg="--dry-run"
+        fi
+        python document.py \
+        -C "$code_patterns" \
+        -D "$doc_patterns" \
+        -H "$header_patterns" -E "$encoding" \
+        --format-filename "$format_filename" \
+        --format-cvarname "$format_cvarname" \
+        --format-cvarprop "$format_cvarprop" \
+        $dryrunarg
 
     - name: Debug diff
       run: git diff
