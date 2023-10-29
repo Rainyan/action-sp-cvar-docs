@@ -60,7 +60,7 @@ def update_readme(
     header_patterns,
     format_filename: str,
     format_cvarname: str,
-    format_cvarinfo: str,
+    format_cvarprop: str,
 ) -> str:
     for i, child in enumerate(doc.children, start=1):
         if not isinstance(child, marko.block.Heading):
@@ -98,7 +98,7 @@ def update_readme(
                         continue  # Skip the implicit "has min/max" values
                     if name == sp_cvars.CvarName.FLAGS and val == "0":
                         continue  # Skip no bit flags
-                    rawtext += format_cvarinfo.replace("$a", name).replace("$b", val)
+                    rawtext += format_cvarprop.replace("$a", name).replace("$b", val)
 
     p = marko.block.Paragraph([])
     p.children.append(marko.inline.RawText(rawtext))  # type: ignore
@@ -156,8 +156,8 @@ def main() -> None:
         default="* $a\n",
     )
     parser.add_argument(
-        "--format-cvarinfo",
-        help="Formatting for the cvar info blob, with placeholder $a (property name), and $b (property default value).",
+        "--format-cvarprop",
+        help="Formatting for the cvar property, with placeholder $a (property name), and $b (property default value).",
         default="  * $a: `$b`\n",
     )
     args = parser.parse_args()
@@ -200,7 +200,7 @@ def main() -> None:
         pattern_headers,
         args.format_filename,
         args.format_cvarname,
-        args.format_cvarinfo,
+        args.format_cvarprop,
     )
     if args.dry_run:
         print(doc_output)

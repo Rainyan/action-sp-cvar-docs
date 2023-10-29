@@ -23,8 +23,8 @@ inputs:
   format_cvarname:
     description: 'Formatting for the cvar name blob, with placeholder $a.'
     default: '* $a\n'
-  format_cvarinfo:
-    description: 'Formatting for the cvar info blob, with placeholder $a (property name), and $b (property default value).'
+  format_cvarprop:
+    description: 'Formatting for the cvar property, with placeholder $a (property name), and $b (property default value).'
     default: '  * $a: `$b`\n'
 runs:
   using: 'composite'
