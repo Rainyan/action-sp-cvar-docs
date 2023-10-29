@@ -112,7 +112,10 @@ def main() -> None:
     )
     parser.add_argument(
         "--cwd",
-        help="Current working directory. Note that the default (.) is always treated as this Python script's directory, regardless of actual CWD; you must set the full path explicitly if this behaviour is undesired.",
+        help="Current working directory. Note that the default (.) is always "
+        "treated as this Python script's directory, regardless of actual "
+        "CWD; you must set the full path explicitly if this behaviour is "
+        "undesired.",
         default=".",
     )
     parser.add_argument(
