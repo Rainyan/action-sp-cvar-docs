@@ -160,9 +160,14 @@ def main() -> None:
     )
     args = parser.parse_args()
 
+    working_dir = (
+        os.path.dirname(os.path.realpath(__file__)) if args.cwd == "." else args.cwd
+    )
+    assert os.path.isdir(working_dir)
+
     path_codes: list[os.PathLike | str] = []
     pattern_code = re.compile(args.code_patterns)
-    for root, _, files in os.walk(os.path.dirname(os.path.realpath(__file__))):
+    for root, _, files in os.walk(working_dir):
         for file in files:
             if pattern_code.match(file):
                 p = os.path.join(root, file)
@@ -172,9 +177,6 @@ def main() -> None:
 
     path_doc = None
     pattern_doc = re.compile(args.doc_patterns)
-    working_dir = (
-        os.path.dirname(os.path.realpath(__file__)) if args.cwd == "." else args.cwd
-    )
     for root, _, files in os.walk(working_dir):
         for file in files:
             if pattern_doc.match(file):
