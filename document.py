@@ -7,6 +7,7 @@ import os
 import re
 import sys
 from ast import literal_eval
+from typing import Optional
 
 import marko
 from marko.md_renderer import MarkdownRenderer
@@ -17,12 +18,10 @@ import sp_cvars
 VERSION = "0.1.0"
 
 
-def update_readme(cvars: list[sp_cvars.Cvar], input: str, header_patterns) -> str:
-    if len(cvars) == 0:
-        return input
-
-    md = marko.Markdown(renderer=MarkdownRenderer)
-    doc = md.parse(input)
+def purge_readme(
+    md: marko.Markdown, input: str, header_patterns
+) -> Optional[marko.block.Document]:
+    doc = md.parse(input)  # type: ignore
     it = iter(doc.children)
     i = 0
     target = None
@@ -32,7 +31,7 @@ def update_readme(cvars: list[sp_cvars.Cvar], input: str, header_patterns) -> st
             i += 1
             if not isinstance(child, marko.block.Heading):
                 continue
-            text = md.renderer.render_children(child)
+            text = md.renderer.render_children(child)  # type: ignore
             if header_patterns.fullmatch(text):
                 target = child  # Find target header
                 next_child = next(it)
@@ -51,39 +50,67 @@ def update_readme(cvars: list[sp_cvars.Cvar], input: str, header_patterns) -> st
                 break
         except StopIteration:
             break
+    return doc if target is not None else None
+
+
+def update_readme(
+    md: marko.Markdown,
+    codes_cvars: dict[str, list[sp_cvars.Cvar]],
+    doc: marko.block.Document,
+    header_patterns,
+) -> str:
+    it = iter(doc.children)
+    i = 0
+    target = None
+    while True:
+        try:
+            child = next(it)
+            i += 1
+            if not isinstance(child, marko.block.Heading):
+                continue
+            text = md.renderer.render_children(child)  # type: ignore
+            if header_patterns.fullmatch(text):
+                target = child  # Find target header
+                break
+        except StopIteration:
+            break
     if target is None:
-        return input
+        return md.render(doc)
+
+    trueish = lambda a: (a.isnumeric() and a != "0") or a.lower() == "true"
 
     rawtext = ""
-    trueish = lambda a: (a.isnumeric() and a != "0") or a.lower() == "true"
-    for cvar in cvars:
-        skip = False
-        for j, (name, val) in enumerate(cvar.items()):
-            if skip:  # Skip values we don't have
-                skip = False
-                continue
+    for filename, cvars in codes_cvars.items():
+        if len(codes_cvars) > 1:
+            rawtext += f"### {filename}\n"
+        for cvar in cvars:
             skip = False
-
-            val = val.lstrip('"').rstrip('"')
-            if j == 0:
-                rawtext += f"* {val}\n"
-            else:
-                if name in (
-                    sp_cvars.CvarName.HAS_MIN,
-                    sp_cvars.CvarName.HAS_MAX,
-                ):
-                    skip = not trueish(val)
-                    continue  # Skip the implicit "has min/max" values
-                if name == sp_cvars.CvarName.FLAGS and val == "0":  # Skip no bit flags
+            for j, (name, val) in enumerate(cvar.items()):
+                if skip:  # Skip values we don't have
+                    skip = False
                     continue
-                rawtext += f"  * {name}: `{val}`\n"
+                skip = False
+
+                val = val.lstrip('"').rstrip('"')
+                if j == 0:
+                    rawtext += f"* {val}\n"
+                else:
+                    if name in (
+                        sp_cvars.CvarName.HAS_MIN,
+                        sp_cvars.CvarName.HAS_MAX,
+                    ):
+                        skip = not trueish(val)
+                        continue  # Skip the implicit "has min/max" values
+                    if name == sp_cvars.CvarName.FLAGS and val == "0":
+                        continue  # Skip no bit flags
+                    rawtext += f"  * {name}: `{val}`\n"
     p = marko.block.Paragraph([])
     p.children.append(marko.inline.RawText(rawtext))  # type: ignore
     doc.children.insert(i, p)  # type: ignore
     return md.render(doc)
 
 
-def main():
+def main() -> None:
     parser = argparse.ArgumentParser(
         prog=sys.argv[0],
         description=__doc__,
@@ -124,42 +151,46 @@ def main():
     )
     args = parser.parse_args()
 
-    path_code = None
+    path_codes: list[os.PathLike | str] = []
     pattern_code = re.compile(args.code_patterns)
     for root, _, files in os.walk(os.path.dirname(os.path.realpath(__file__))):
         for file in files:
             if pattern_code.match(file):
-                path_code = os.path.join(root, file)
-                break
-    assert path_code is not None
-    assert os.path.isfile(path_code)
+                p = os.path.join(root, file)
+                assert os.path.isfile(p)
+                path_codes.append(p)
+    assert len(path_codes) > 0
 
     path_doc = None
     pattern_doc = re.compile(args.doc_patterns)
-
     working_dir = (
         os.path.dirname(os.path.realpath(__file__)) if args.cwd == "." else args.cwd
     )
-    for root, subdirs, files in os.walk(working_dir):
+    for root, _, files in os.walk(working_dir):
         for file in files:
             if pattern_doc.match(file):
                 path_doc = os.path.join(root, file)
+                break
     assert path_doc is not None
     assert os.path.isfile(path_doc)
 
-    cvars = sp_cvars.parse_cvars(path_code)
     with open(path_doc, mode="r", encoding=args.encoding) as f:
         doc_input = f.read()
-    doc_output = update_readme(cvars, doc_input, re.compile(args.header_patterns))
 
-    if args.dry_run:
-        print(f"Input differs from output: {doc_input != doc_output}")
-        print(f"Length of output: {len(doc_output)}")
-        print("= = = OUTPUT STARTS = = =")
-        print(doc_output)
-        print("= = = OUTPUT ENDS = = =")
+    md = marko.Markdown(renderer=MarkdownRenderer)
+    pattern_headers = re.compile(args.header_patterns)
+    if (doc := purge_readme(md, doc_input, pattern_headers)) is None:
         return
-
+    codes_cvars = {os.path.basename(a): sp_cvars.parse_cvars(a) for a in path_codes}
+    doc_output = update_readme(
+        md,
+        codes_cvars,
+        doc,
+        pattern_headers,
+    )
+    if args.dry_run:
+        print(doc_output)
+        return
     if doc_input != doc_output:
         with open(path_doc, mode="w", encoding=args.encoding) as f:
             f.write(doc_output)
