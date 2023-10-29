@@ -90,6 +90,11 @@ def main():
         epilog=f"Version {VERSION}",
     )
     parser.add_argument(
+        "--cwd",
+        help="Current working directory.",
+        default=".",
+    )
+    parser.add_argument(
         "-C",
         "--code_patterns",
         help="RegEx pattern for code files to match.",
@@ -131,7 +136,9 @@ def main():
 
     path_doc = None
     pattern_doc = re.compile(args.doc_patterns)
-    for root, subdirs, files in os.walk(os.path.dirname(os.path.realpath(__file__))):
+
+    working_dir = os.path.dirname(os.path.realpath(__file__)) if args.cwd == "." else args.cwd
+    for root, subdirs, files in os.walk(working_dir):
         for file in files:
             if pattern_doc.match(file):
                 path_doc = os.path.join(root, file)
