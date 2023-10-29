@@ -147,7 +147,7 @@ def main() -> None:
     )
     parser.add_argument(
         "--format-filename",
-        help="Formatting for the filename blob, with placeholder $a",
+        help="Formatting for the filename blob, with placeholder $a. This is skipped if parsing one single code file.",
         default="### $a\n",
     )
     parser.add_argument(

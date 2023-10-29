@@ -18,7 +18,7 @@ inputs:
     description: 'Encoding to use for file read/write operations.'
     default: 'utf-8'
   format_filename:
-    description: 'Formatting for the filename blob, with placeholder $a'
+    description: 'Formatting for the filename blob, with placeholder $a. This is skipped if parsing one single code file.'
     default: '### $a\n'
   format_cvarname:
     description: 'Formatting for the cvar name blob, with placeholder $a'
