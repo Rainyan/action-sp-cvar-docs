@@ -50,7 +50,6 @@ def update_readme(cvars: list[sp_cvars.Cvar], input: str) -> str:
     for cvar in cvars:
         skip = False
         for j, (name, val) in enumerate(cvar.items()):
-            print(name, val)
             if skip:  # Skip values we don't have
                 skip = False
                 continue

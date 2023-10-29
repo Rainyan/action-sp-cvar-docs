@@ -107,26 +107,11 @@ class Cvar:
     def __next__(self):
         i = self._i
         self._i += 1
-        match i:
-            case 0:
-                return self.name
-            case 1:
-                return self.default_value
-            case 2:
-                return self.description
-            case 3:
-                return self.flags
-            case 4:
-                return self.has_min
-            case 5:
-                return self.min
-            case 6:
-                return self.has_max
-            case 7:
-                return self.max
-            case _:
-                self._i = 0
-                raise StopIteration
+        try:
+            return self.values()[i]
+        except IndexError:
+            self._i = 0
+            raise StopIteration
 
     @property
     def name(self) -> str:
