@@ -2,15 +2,18 @@ name: 'SourceMod Cvar Docs'
 description: 'Automatic Markdown documentation for SourceMod plugin ConVars.'
 author: 'https://github.com/Rainyan'
 inputs:
-  docs:
-    description: 'RegEx pattern for MarkDown documents to match.'
-    default: 'README.md'
-  files:
-    description: 'RegEx pattern for SourceMod code documents to match.'
-    default: '*.sp'
-  headers:
-    description: 'Comma-delimited list of the Markdown headers to use as the cvar docs placeholder location. Case-insensitive, first match.'
-    default: 'cvars,convars,console variables'
+  code_patterns:
+    description: 'RegEx pattern for code files to match.'
+    default: '^.*\.(sp|inc|SP|INC)$'
+  doc_patterns:
+    description: 'RegEx pattern for documentation files to match.'
+    default: '^.*\.(md|MD)$'
+  header_patterns:
+    description: 'RegEx pattern for documentation headers to match for the location of the cvar docs placeholder.'
+    default: '([Cc]vars|[Cc]on[Vv]ars|[Cc]onsole [Vv]ariables)'
+  dry_run:
+    description: 'Whether to print the output instead of writing to file.'
+    default: false
 runs:
   using: 'composite'
   steps:
@@ -27,13 +30,8 @@ runs:
     - name: Update documentation files
     - shell: bash
       run: |
-        for code in $(find . -regex "${{ inputs.files }}")
-        do
-          for doc in $(find . -regex "${{ inputs.docs }}")
-          do
-            python document.py "$code" "$doc"
-          done
-        done
+        # TODO: use dry-run option correctly
+        python document.py "$code_patterns" "$doc_patterns" "$header_patterns"
 
     - name: Debug diff
       run: git diff
