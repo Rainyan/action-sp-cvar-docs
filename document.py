@@ -189,6 +189,7 @@ def main() -> None:
     assert path_doc is not None
     assert os.path.isfile(path_doc)
 
+    print(f"Using encoding: {args.encoding}")
     with open(path_doc, mode="r", encoding=args.encoding) as f:
         doc_input = f.read()
 
