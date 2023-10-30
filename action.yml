@@ -50,7 +50,7 @@ runs:
         if $dry_run; then
             dryrunarg="--dry-run"
         fi
-        python document.py \
+        python "${{ github.action_path }}/document.py" \
         -C "$code_patterns" \
         -D "$doc_patterns" \
         -H "$header_patterns" \
