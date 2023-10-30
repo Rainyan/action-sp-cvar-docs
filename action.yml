@@ -61,6 +61,7 @@ runs:
         $dryrunarg
 
     - name: Debug diff
+      shell: bash
       run: git diff
 # Branding reference: https://haya14busa.github.io/github-action-brandings/
 branding:
