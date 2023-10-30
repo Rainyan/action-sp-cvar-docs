@@ -54,7 +54,7 @@ runs:
         -C "$code_patterns" \
         -D "$doc_patterns" \
         -H "$header_patterns" \
-        -E "$encoding" \
+        --encoding "$encoding" \
         --format-filename "$format_filename" \
         --format-cvarname "$format_cvarname" \
         --format-cvarprop "$format_cvarprop" \
