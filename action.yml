@@ -51,13 +51,13 @@ runs:
             dryrunarg="--dry-run"
         fi
         python "${{ github.action_path }}/document.py" \
-        -C "$code_patterns" \
-        -D "$doc_patterns" \
-        -H "$header_patterns" \
-        -E "$encoding" \
-        --format-filename "$format_filename" \
-        --format-cvarname "$format_cvarname" \
-        --format-cvarprop "$format_cvarprop" \
+        -C "${{ code_patterns }}" \
+        -D "${{ doc_patterns }}" \
+        -H "${{ header_patterns }}" \
+        -E "${{ encoding }}" \
+        --format-filename "${{ format_filename }}" \
+        --format-cvarname "${{ format_cvarname }}" \
+        --format-cvarprop "${{ format_cvarprop }}" \
         $dryrunarg
 
     - name: Debug diff
