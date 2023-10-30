@@ -153,11 +153,7 @@ def parse_cvars(filepath: os.PathLike | str) -> list[Cvar]:
     with open(filepath, mode="r", encoding="utf-8") as f:
         code = f.read()
     name = "CreateConVar"
-    cvars_text = re.findall(rf"{name}\((.*?)\);", code, flags=re.DOTALL)
-    cvars: list[Cvar] = []
-    for cvar_text in cvars_text:
-        cvars.append(Cvar(cvar_text))
-    return cvars
+    return [Cvar(a) for a in re.findall(rf"{name}\((.*?)\);", code, flags=re.DOTALL)]
 
 
 if __name__ == "__main__":
