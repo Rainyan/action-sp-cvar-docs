@@ -21,6 +21,9 @@ class Cvar:
     def __init__(self, input) -> None:
         self._i: int = 0
 
+        print("INPUT:")
+        print(input)
+
         input = input.replace("\r", "")
         input = input.replace("\\\n", " ")  # C line continuations
 
