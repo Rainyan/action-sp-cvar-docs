@@ -40,7 +40,6 @@ options:
 
 For example:
 ```yml
-uses: Rainyan/action-sp-cvar-docs@v1
 with:
   doc_patterns: '^.*\.(md|MD)$'
 ```
