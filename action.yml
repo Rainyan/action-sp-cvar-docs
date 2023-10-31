@@ -65,8 +65,10 @@ runs:
         $dryrunarg
 
     - name: Commit changes
-      shell: bash
-      run: echo foo
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: Update cvars documentation
+          file_pattern: '*.md *.MD'
 # Branding reference: https://haya14busa.github.io/github-action-brandings/
 branding:
   icon: 'book-open'
