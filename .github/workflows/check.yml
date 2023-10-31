@@ -1,0 +1,17 @@
+name: Lint & type check
+
+on: [push, pull_request]
+
+jobs:
+  run-checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Lint
+      - uses: psf/black@stable
+
+      - name: Type check
+      - run: |
+          pip install -U mypy
+          mypy .
