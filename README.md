@@ -7,7 +7,38 @@ Automatic Markdown documentation for SourceMod plugin ConVars.
 This action will scan all your SourcePawn code files (specified by `--code_patterns` regex) for ConVars created by `CreateConVar`, then look for the first Markdown file matching the `--doc_patterns` regex, and from within it, look for the first Markdown header matching the `--header_patterns` regex, and replace that header's contents with the parsed cvar info.
 
 ## Usage
-To get started, copy the docs.yml GitHub action file from [the example](#Example).
+To get started, copy the *docs.yml* GitHub action from [the example](#Example).
+
+The action will accept all of the optional arguments for the underlying *document.py* Python script (replace dashes with underlines for multi-word arguments):
+```
+usage: document.py [-h] [-C CODE_PATTERNS] [-D DOC_PATTERNS] [-H HEADER_PATTERNS] [--dry-run] [--encoding ENCODING] [--format-filename FORMAT_FILENAME] [--format-cvarname FORMAT_CVARNAME]
+                   [--format-cvarprop FORMAT_CVARPROP]
+                   cwd
+
+Automatic Markdown documentation for SourceMod plugin ConVars.
+
+positional arguments:
+  cwd                   Current working directory.
+
+options:
+  -h, --help            show this help message and exit
+  -C CODE_PATTERNS, --code_patterns CODE_PATTERNS
+                        RegEx pattern for code files to match.
+  -D DOC_PATTERNS, --doc_patterns DOC_PATTERNS
+                        RegEx pattern for documentation files to match.
+  -H HEADER_PATTERNS, --header_patterns HEADER_PATTERNS
+                        RegEx pattern for documentation headers to match for the location of the cvar docs placeholder.
+  --dry-run             If set, print the output to stdout instead of writing to file.
+  --encoding ENCODING   Encoding to use for file read/write operations.
+  --format-filename FORMAT_FILENAME
+                        Formatting for the code file name, with placeholder !a!. This is skipped if parsing one single code file.
+  --format-cvarname FORMAT_CVARNAME
+                        Formatting for the cvar name, with placeholder !a!.
+  --format-cvarprop FORMAT_CVARPROP
+                        Formatting for the cvar property, with placeholder !a! (property name), and !b! (property default value).
+```
+
+For the defaults, see the [argument parser code](https://github.com/search?q=repo%3ARainyan%2Faction-sp-cvar-docs+ArgumentParser&type=code).
 
 
 ## Example
