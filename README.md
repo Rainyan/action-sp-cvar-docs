@@ -4,7 +4,10 @@
 # action-sp-cvar-docs
 Automatic Markdown documentation for SourceMod plugin ConVars.
 
+This action will scan all your SourcePawn code files (specified by `--code_patterns` regex) for ConVars created by `CreateConVar`, then look for the first Markdown file matching the `--doc_patterns` regex, and from within it, look for the first Markdown header matching the `--header_patterns` regex, and replace that header's contents with the parsed cvar info.
+
 ## Example
+### Action file
 Create the file `.github/workflows/docs.yml` at the root of the repo:
 ```yml
 name: Update cvar docs
@@ -34,4 +37,16 @@ jobs:
         uses: Rainyan/action-sp-cvar-docs@v1
         with:
           dry_run: false
+```
+### Readme file
+Create a `README.md` file at the root of the repo:
+```md
+# Test
+Lorem ipsum.
+## Usage
+### Cvars <!-- A header at any level will work, as long as it matches the --header_patterns regex -->
+This line will be replaced.
+This line will also be replaced.
+### But the following header will persist.
+As will the text after it.
 ```
