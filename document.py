@@ -79,25 +79,19 @@ def update_readme(
             continue
         if len(codes_cvars) > 1:
             rawtext += format_filename.replace("!a!", filename)
-            print(f"rawtext filename: {rawtext}")
         for cvar in cvars:
             skip = False
             for j, (name, val) in enumerate(cvar.items()):
-                print(f"{j}, name: {name} => '{val}'")
                 if skip:  # Skip values we don't have
                     skip = False
                     continue
                 skip = False
 
                 val = val.lstrip('"').rstrip('"')
-                print(val)
                 if j == 0:
                     a = "!a!"
                     b = val
-                    print(f"  !! Attempting replace: '{a}', '{b}'")
-                    print(f"  of: '{format_cvarname}'")
                     rawtext += format_cvarname.replace("!a!", val)
-                    print(f"rawtext cvarname append: {rawtext}")
                 else:
                     if name in (
                         sp_cvars.CvarName.HAS_MIN,
@@ -108,7 +102,6 @@ def update_readme(
                     if name == sp_cvars.CvarName.FLAGS and val == "0":
                         continue  # Skip no bit flags
                     rawtext += format_cvarprop.replace("!a!", name).replace("!b!", val)
-                    print(f"rawtext cvarprop append: {rawtext}")
 
     p = marko.block.Paragraph([])
     p.children.append(marko.inline.RawText(rawtext))  # type: ignore
