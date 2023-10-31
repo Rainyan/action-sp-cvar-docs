@@ -60,13 +60,13 @@ runs:
         echo format_cvarprop: $format_cvarprop
 
         python "${{ github.action_path }}/document.py" \
-        -C "$code_patterns" \
-        -D "$doc_patterns" \
-        -H "$header_patterns" \
-        --encoding "$encoding" \
-        --format-filename "$format_filename" \
-        --format-cvarname "$format_cvarname" \
-        --format-cvarprop "$format_cvarprop" \
+        -C "${{ inputs.code_patterns }}" \
+        -D "${{ inputs.doc_patterns }}" \
+        -H "${{ inputs.header_patterns }}" \
+        --encoding "${{ inputs.encoding }}" \
+        --format-filename "${{ inputs.format_filename }}" \
+        --format-cvarname "${{ inputs.format_cvarname }}" \
+        --format-cvarprop "${{ inputs.format_cvarprop }}" \
         $dryrunarg
 
     - name: Debug diff
