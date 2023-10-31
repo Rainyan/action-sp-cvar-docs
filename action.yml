@@ -50,7 +50,7 @@ runs:
     - name: Update documentation files
       shell: bash
       run: |
-        if $dry_run; then
+        if ${{ inputs.dry_run }}; then
             dryrunarg="--dry-run"
         fi
         python '${{ github.action_path }}/document.py' \
