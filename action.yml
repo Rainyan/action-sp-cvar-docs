@@ -35,7 +35,7 @@ runs:
     - name: Set up Python
       uses: actions/setup-python@v4
       with:
-        python-version: "3.11"
+        python-version: "3.12"
 
     - name: Add action path
       run: echo "${{ github.action_path }}" >> $GITHUB_PATH
