@@ -66,13 +66,7 @@ runs:
 
     - name: Commit changes
       shell: bash
-      run: |
-        if ! ${{ inputs.dry_run }}; then
-          git add .
-          git status
-          git commit -m "Test"
-          git status
-        fi
+      run: echo foo
 # Branding reference: https://haya14busa.github.io/github-action-brandings/
 branding:
   icon: 'book-open'
