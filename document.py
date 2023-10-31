@@ -14,7 +14,7 @@ from marko.md_renderer import MarkdownRenderer
 import sp_cvars
 
 
-VERSION = "0.1.0"
+VERSION = "1.0.0"
 
 
 def purge_readme(
@@ -127,7 +127,7 @@ def main() -> None:
         "-D",
         "--doc_patterns",
         help="RegEx pattern for documentation files to match.",
-        default=r"^.*\.(md|MD)$",
+        default=r"^[Rr][Ee][Aa][Dd][Mm][Ee]\.[Mm][Dd]$",
     )
     parser.add_argument(
         "-H",

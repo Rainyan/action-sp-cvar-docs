@@ -10,7 +10,7 @@ inputs:
     default: '^.*\.(sp|inc|SP|INC)$'
   doc_patterns:
     description: 'RegEx pattern for documentation files to match.'
-    default: '^.*\.(md|MD)$'
+    default: '^[Rr][Ee][Aa][Dd][Mm][Ee]\.[Mm][Dd]$
   header_patterns:
     description: 'RegEx pattern for documentation headers to match for the location of the cvar docs placeholder.'
     default: '([Cc]vars|[Cc]on[Vv]ars|[Cc]onsole [Vv]ariables)'
