@@ -64,6 +64,9 @@ runs:
         --format-cvarprop '${{ inputs.format_cvarprop }}' \
         $dryrunarg
 
+    - name: Pull Remote Changes
+      run: git pull
+
     - name: Commit changes
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
