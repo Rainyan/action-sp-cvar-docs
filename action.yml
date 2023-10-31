@@ -31,6 +31,8 @@ inputs:
     default: '  * !a!: `!b!`\n'
 runs:
   using: 'composite'
+  permissions:
+    contents: write
   steps:
     - name: Set up Python
       uses: actions/setup-python@v4
