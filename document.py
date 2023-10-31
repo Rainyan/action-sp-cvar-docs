@@ -74,12 +74,11 @@ def update_readme(
     trueish = lambda a: (a.isnumeric() and a != "0") or a.lower() == "true"
 
     rawtext = ""
-    print("W\nT\nF")
     for filename, cvars in codes_cvars.items():
         if len(cvars) == 0:  # Skip cvars docs for code files with no cvars
             continue
         if len(codes_cvars) > 1:
-            rawtext += format_filename.replace('!a!', rf"{filename}")
+            rawtext += format_filename.replace("!a!", filename)
         for cvar in cvars:
             skip = False
             for j, (name, val) in enumerate(cvar.items()):
@@ -90,7 +89,7 @@ def update_readme(
 
                 val = val.lstrip('"').rstrip('"')
                 if j == 0:
-                    rawtext += format_cvarname.replace("!a!", rf"{val}")
+                    rawtext += format_cvarname.replace("!a!", val")
                 else:
                     if name in (
                         sp_cvars.CvarName.HAS_MIN,
@@ -100,7 +99,7 @@ def update_readme(
                         continue  # Skip the implicit "has min/max" values
                     if name == sp_cvars.CvarName.FLAGS and val == "0":
                         continue  # Skip no bit flags
-                    rawtext += format_cvarprop.replace('!a!', rf"{name}").replace('!b!', rf"{val}")
+                    rawtext += format_cvarprop.replace("!a!", name).replace("!b!", val)
 
     p = marko.block.Paragraph([])
     p.children.append(marko.inline.RawText(rawtext))  # type: ignore
