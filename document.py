@@ -95,6 +95,7 @@ def update_readme(
                     a = "$a"
                     b = val
                     print(f"  !! Attempting replace: '{a}', '{b}'")
+                    print(f"  of: '{format_cvarname}'")
                     rawtext += format_cvarname.replace("$a", val)
                     print(f"rawtext cvarname append: {rawtext}")
                 else:
