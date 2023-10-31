@@ -100,6 +100,7 @@ def update_readme(
                     if name == sp_cvars.CvarName.FLAGS and val == "0":
                         continue  # Skip no bit flags
                     rawtext += format_cvarprop.replace("!a!", name).replace("!b!", val)
+    rawtext.replace("\\n", "\n")
 
     p = marko.block.Paragraph([])
     p.children.append(marko.inline.RawText(rawtext))  # type: ignore
