@@ -48,8 +48,6 @@ runs:
         python -m pip install --upgrade -r "${{ github.action_path }}/requirements.txt"
 
     - name: Update documentation files
-      permissions:
-        contents: write
       shell: bash
       run: |
         if ${{ inputs.dry_run }}; then
@@ -67,6 +65,8 @@ runs:
         $dryrunarg
 
     - name: Commit changes
+      permissions:
+        contents: write
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: Update cvars documentation
