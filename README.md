@@ -38,6 +38,13 @@ options:
                         Formatting for the cvar property, with placeholder !a! (property name), and !b! (property default value).
 ```
 
+For example:
+```yml
+uses: Rainyan/action-sp-cvar-docs@v1
+with:
+  doc_patterns: 'README.md'
+```
+
 For the defaults, see the [argument parser code](https://github.com/search?q=repo%3ARainyan%2Faction-sp-cvar-docs+ArgumentParser&type=code).
 
 
