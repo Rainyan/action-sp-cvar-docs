@@ -52,9 +52,9 @@ with:
 would use the `--dry-run` mode, which only prints the change to stdout instead of writing it to file, and:
 ```yml
 with:
-  format_cvarprop: '  * **!a!**: `!b!`\n'
+  format_cvarname: '* **!a!**\n'
 ```
-would render the cvar property name (`!a!`) with **\*\*bold\*\***.
+would render the cvar name (`!a!`) with **\*\*bold\*\***.
 
 For the input arguments' default values, see the [argument parser code](https://github.com/search?q=repo%3ARainyan%2Faction-sp-cvar-docs+ArgumentParser&type=code).
 
