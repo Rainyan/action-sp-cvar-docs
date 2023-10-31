@@ -78,7 +78,7 @@ def update_readme(
         if len(cvars) == 0:  # Skip cvars docs for code files with no cvars
             continue
         if len(codes_cvars) > 1:
-            rawtext += format_filename.replace("$a", filename)
+            rawtext += format_filename.replace("!a!", filename)
             print(f"rawtext filename: {rawtext}")
         for cvar in cvars:
             skip = False
@@ -92,11 +92,11 @@ def update_readme(
                 val = val.lstrip('"').rstrip('"')
                 print(val)
                 if j == 0:
-                    a = "$a"
+                    a = "!a!"
                     b = val
                     print(f"  !! Attempting replace: '{a}', '{b}'")
                     print(f"  of: '{format_cvarname}'")
-                    rawtext += format_cvarname.replace("$a", val)
+                    rawtext += format_cvarname.replace("!a!", val)
                     print(f"rawtext cvarname append: {rawtext}")
                 else:
                     if name in (
@@ -107,7 +107,7 @@ def update_readme(
                         continue  # Skip the implicit "has min/max" values
                     if name == sp_cvars.CvarName.FLAGS and val == "0":
                         continue  # Skip no bit flags
-                    rawtext += format_cvarprop.replace("$a", name).replace("$b", val)
+                    rawtext += format_cvarprop.replace("!a!", name).replace("!b!", val)
                     print(f"rawtext cvarprop append: {rawtext}")
 
     p = marko.block.Paragraph([])
@@ -156,18 +156,18 @@ def main() -> None:
     )
     parser.add_argument(
         "--format-filename",
-        help="Formatting for the code file name, with placeholder $a. This is skipped if parsing one single code file.",
-        default="### $a\n",
+        help="Formatting for the code file name, with placeholder !a!. This is skipped if parsing one single code file.",
+        default="### !a!\n",
     )
     parser.add_argument(
         "--format-cvarname",
-        help="Formatting for the cvar name, with placeholder $a.",
-        default="* $a\n",
+        help="Formatting for the cvar name, with placeholder !a!.",
+        default="* !a!\n",
     )
     parser.add_argument(
         "--format-cvarprop",
-        help="Formatting for the cvar property, with placeholder $a (property name), and $b (property default value).",
-        default="  * $a: `$b`\n",
+        help="Formatting for the cvar property, with placeholder !a! (property name), and !b! (property default value).",
+        default="  * !a!: `!b!`\n",
     )
     args = parser.parse_args()
 
