@@ -51,7 +51,7 @@ runs:
             dryrunarg="--dry-run"
         fi
 
-        echo code_patterns: $code_patterns
+        echo code_patterns: ${{ env:code_patterns }}
         echo doc_patterns: $doc_patterns
         echo header_patterns: $header_patterns
         echo encoding: $encoding
