@@ -50,6 +50,15 @@ runs:
         if $dry_run; then
             dryrunarg="--dry-run"
         fi
+
+        echo $code_patterns
+        echo $doc_patterns
+        echo $header_patterns
+        echo $encoding
+        echo $format_filename
+        echo $format_cvarname
+        echo $format_cvarprop
+
         python "${{ github.action_path }}/document.py" \
         -C "$code_patterns" \
         -D "$doc_patterns" \
