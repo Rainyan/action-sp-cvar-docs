@@ -21,6 +21,7 @@ class Cvar:
     def __init__(self, input) -> None:
         self._i: int = 0
 
+        input = input.replace("\r", "")
         input = input.replace("\\\n", " ")  # C line continuations
 
         parms: list[str] = []
