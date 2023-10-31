@@ -4,7 +4,7 @@ author: 'https://github.com/Rainyan'
 inputs:
   cwd:
     description: 'Current working directory.'
-    default: '${{ env.GITHUB_WORKSPACE }}'
+    default: '${{ github.workspace }}'
   code_patterns:
     description: 'RegEx pattern for code files to match.'
     default: '^.*\.(sp|inc|SP|INC)$'
