@@ -42,8 +42,9 @@ For example:
 ```yml
 uses: Rainyan/action-sp-cvar-docs@v1
 with:
-  doc_patterns: 'README.md'
+  doc_patterns: '^.*\.(md|MD)$'
 ```
+would match the first markdown file with any name, and the extension `.md` or `.MD`, instead of the default of just `README.md`.
 
 For the defaults, see the [argument parser code](https://github.com/search?q=repo%3ARainyan%2Faction-sp-cvar-docs+ArgumentParser&type=code).
 
