@@ -9,7 +9,7 @@ This action will scan all your SourcePawn code files (specified by `--code_patte
 ## Usage
 To get started, copy the *docs.yml* GitHub action from [the example](#Example).
 
-The action will accept all of the optional arguments for the underlying *document.py* Python script (replace dashes with underlines for multi-word arguments):
+The action will accept all of the optional arguments for the underlying *document.py* Python script (replace dashes with underlines for multi-word arguments) as input parameters:
 ```
 usage: document.py [-h] [-C CODE_PATTERNS] [-D DOC_PATTERNS] [-H HEADER_PATTERNS] [--dry-run] [--encoding ENCODING] [--format-filename FORMAT_FILENAME] [--format-cvarname FORMAT_CVARNAME]
                    [--format-cvarprop FORMAT_CVARPROP]
