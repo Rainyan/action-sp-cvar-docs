@@ -44,7 +44,8 @@ Create a `README.md` file at the root of the repo:
 # Test
 Lorem ipsum.
 ## Usage
-### Cvars <!-- A header at any level will work, as long as it matches the --header_patterns regex -->
+<!-- A header at any level will work, as long as it matches the --header_patterns regex -->
+### Cvars
 This line will be replaced.
 This line will also be replaced.
 ### But the following header will persist.
