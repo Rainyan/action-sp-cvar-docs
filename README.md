@@ -38,6 +38,21 @@ jobs:
         with:
           dry_run: false
 ```
+
+### Plugin file
+Create a `example.sp` file at the root of the repo:
+```sp
+#include <sourcemod>
+
+ConVar foo;
+
+public void OnPluginStart()
+{
+	foo = CreateConVar("foo", "The default value", "This variable adjusts the foo.",
+		_, true, 0.0, true, float(MaxClients));
+}
+```
+
 ### Readme file
 Create a `README.md` file at the root of the repo:
 ```md
