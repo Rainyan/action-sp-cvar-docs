@@ -2,6 +2,11 @@ name: 'SourceMod Cvar Docs'
 description: 'Automatic Markdown documentation for SourceMod plugin ConVars.'
 author: 'https://github.com/Rainyan'
 inputs:
+  cwd:
+    description: >
+      Current working directory.
+      Note that the default (.) is always treated as this Python script's directory,
+      regardless of actual CWD; you must set the full path explicitly if this behaviour is undesired.
   code_patterns:
     description: 'RegEx pattern for code files to match.'
     default: '^.*\.(sp|inc|SP|INC)$'
@@ -51,6 +56,7 @@ runs:
             dryrunarg="--dry-run"
         fi
         python "${{ github.action_path }}/document.py" \
+        --cwd "${{ inputs.cwd }}" \
         -C "${{ inputs.code_patterns }}" \
         -D "${{ inputs.doc_patterns }}" \
         -H "${{ inputs.header_patterns }}" \
