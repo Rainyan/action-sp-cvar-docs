@@ -75,9 +75,12 @@ def update_readme(
 
     rawtext = ""
     for filename, cvars in codes_cvars.items():
+        if len(cvars) == 0:  # Skip cvars docs for code files with no cvars
+            continue
         if len(codes_cvars) > 1:
             rawtext += format_filename.replace("$a", filename)
         for cvar in cvars:
+            print(cvar)
             skip = False
             for j, (name, val) in enumerate(cvar.items()):
                 if skip:  # Skip values we don't have
