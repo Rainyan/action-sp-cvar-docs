@@ -111,12 +111,8 @@ def main() -> None:
         epilog=f"Version {VERSION}",
     )
     parser.add_argument(
-        "--cwd",
-        help="Current working directory. Note that the default (.) is always "
-        "treated as this Python script's directory, regardless of actual "
-        "CWD; you must set the full path explicitly if this behaviour is "
-        "undesired.",
-        default=".",
+        "cwd",
+        help="Current working directory.",
     )
     parser.add_argument(
         "-C",
@@ -163,12 +159,9 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    # HACK: treat "." as this file's path (see the args.cwd docs)
-    assert args.cwd != ""
     working_dir = (
-        os.path.dirname(os.path.realpath(__file__)) if args.cwd == "." else args.cwd
+        os.path.dirname(os.path.realpath(__file__)) if args.cwd == "" else args.cwd
     )
-    print(f"SET AS: {working_dir} ({args.cwd})")
     assert os.path.isdir(working_dir)
 
     path_codes: list[os.PathLike | str] = []
