@@ -74,6 +74,7 @@ def update_readme(
     trueish = lambda a: (a.isnumeric() and a != "0") or a.lower() == "true"
 
     rawtext = ""
+    print("W\nT\nF")
     for filename, cvars in codes_cvars.items():
         if len(cvars) == 0:  # Skip cvars docs for code files with no cvars
             continue
