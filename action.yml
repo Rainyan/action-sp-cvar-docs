@@ -22,7 +22,7 @@ inputs:
     default: 'utf-8'
   format_filename:
     description: 'Formatting for the code file name, with placeholder $a. This is skipped if parsing one single code file.'
-    default: '### !a!WTF\n'
+    default: '### !a!\n'
   format_cvarname:
     description: 'Formatting for the cvar name, with placeholder $a.'
     default: '* !a!\n'
