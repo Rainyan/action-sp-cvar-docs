@@ -3,10 +3,7 @@ description: 'Automatic Markdown documentation for SourceMod plugin ConVars.'
 author: 'https://github.com/Rainyan'
 inputs:
   cwd:
-    description: >
-      Current working directory.
-      Note that the default (.) is always treated as this Python script's directory,
-      regardless of actual CWD; you must set the full path explicitly if this behaviour is undesired.
+    description: 'Current working directory.'
     default: '.'
   code_patterns:
     description: 'RegEx pattern for code files to match.'
