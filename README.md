@@ -1,5 +1,5 @@
-![Black](https://github.com/Rainyan/action-sp-cvar-docs/actions/workflows/black.yml/badge.svg)
-![MyPy](https://github.com/Rainyan/action-sp-cvar-docs/actions/workflows/mypy.yml/badge.svg)
+[![Black](https://github.com/Rainyan/action-sp-cvar-docs/actions/workflows/black.yml/badge.svg)](.github/workflows/black.yml)
+[![MyPy](https://github.com/Rainyan/action-sp-cvar-docs/actions/workflows/mypy.yml/badge.svg)](.github/workflows/mypy.yml)
 
 # action-sp-cvar-docs
 Automatic Markdown documentation for SourceMod plugin ConVars.
