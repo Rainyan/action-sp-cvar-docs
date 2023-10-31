@@ -6,6 +6,10 @@ Automatic Markdown documentation for SourceMod plugin ConVars.
 
 This action will scan all your SourcePawn code files (specified by `--code_patterns` regex) for ConVars created by `CreateConVar`, then look for the first Markdown file matching the `--doc_patterns` regex, and from within it, look for the first Markdown header matching the `--header_patterns` regex, and replace that header's contents with the parsed cvar info.
 
+## Usage
+To get started, copy the docs.yml GitHub action file from [the example](#Example).
+
+
 ## Example
 ### Action file
 Create the file `.github/workflows/docs.yml` at the root of the repo:
