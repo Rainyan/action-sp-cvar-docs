@@ -22,13 +22,13 @@ inputs:
     default: 'utf-8'
   format_filename:
     description: 'Formatting for the code file name, with placeholder $a. This is skipped if parsing one single code file.'
-    default: '### \!a\!\n'
+    default: '### !a!\n'
   format_cvarname:
     description: 'Formatting for the cvar name, with placeholder $a.'
-    default: '* \!a\!\n'
+    default: '* !a!\n'
   format_cvarprop:
     description: 'Formatting for the cvar property, with placeholder $a (property name), and $b (property default value).'
-    default: '  * \!a\!: \`\!b\!\`\n'
+    default: '  * !a!: `!b!`\n'
 runs:
   using: 'composite'
   steps:
@@ -53,15 +53,15 @@ runs:
         if $dry_run; then
             dryrunarg="--dry-run"
         fi
-        python "${{ github.action_path }}/document.py" \
-        "${{ inputs.cwd }}" \
-        -C "${{ inputs.code_patterns }}" \
-        -D "${{ inputs.doc_patterns }}" \
-        -H "${{ inputs.header_patterns }}" \
-        --encoding "${{ inputs.encoding }}" \
-        --format-filename "${{ inputs.format_filename }}" \
-        --format-cvarname "${{ inputs.format_cvarname }}" \
-        --format-cvarprop "${{ inputs.format_cvarprop }}" \
+        python '${{ github.action_path }}/document.py' \
+        '${{ inputs.cwd }}' \
+        -C '${{ inputs.code_patterns }}' \
+        -D '${{ inputs.doc_patterns }}' \
+        -H '${{ inputs.header_patterns }}' \
+        --encoding '${{ inputs.encoding }}' \
+        --format-filename '${{ inputs.format_filename }}' \
+        --format-cvarname '${{ inputs.format_cvarname }}' \
+        --format-cvarprop '${{ inputs.format_cvarprop }}' \
         $dryrunarg
 
     - name: Debug diff
