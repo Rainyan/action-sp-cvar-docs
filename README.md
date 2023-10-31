@@ -30,7 +30,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Update docs
-        uses: Rainyan/action-sp-cvar-docs@main
+        uses: Rainyan/action-sp-cvar-docs@v1
         with:
           dry_run: false
 ```
