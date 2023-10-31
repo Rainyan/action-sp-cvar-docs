@@ -64,9 +64,15 @@ runs:
         --format-cvarprop '${{ inputs.format_cvarprop }}' \
         $dryrunarg
 
-    - name: Debug diff
+    - name: Commit changes
       shell: bash
-      run: git diff
+      run: |
+        if ! ${{ inputs.dry_run }}; then
+          git add .
+          git status
+          git commit -m "Test"
+          git status
+        fi
 # Branding reference: https://haya14busa.github.io/github-action-brandings/
 branding:
   icon: 'book-open'
