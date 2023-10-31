@@ -49,7 +49,7 @@ For the input arguments' default values, see the [argument parser code](https://
 
 ## Example
 ### Action file
-Create the file `.github/workflows/docs.yml` at the root of the repo:
+Using the file `.github/workflows/docs.yml` at the root of the repo:
 ```yml
 name: Update cvar docs
 
@@ -79,7 +79,7 @@ jobs:
 ```
 
 ### Plugin file
-Create a `example.sp` file at the root of the repo:
+Assuming there exists a `example.sp` file in the repo:
 ```sp
 #include <sourcemod>
 
@@ -93,7 +93,7 @@ public void OnPluginStart()
 ```
 
 ### Readme file
-Create a `README.md` file at the root of the repo:
+And there exists a `README.md` file at the root of the repo:
 ```md
 # Test
 Lorem ipsum.
@@ -107,7 +107,7 @@ As will the text after it.
 ```
 
 #### Results:
-The action will update the README file:
+The action will update the `README.md` file:
 ```md
 # Test
 Lorem ipsum.
