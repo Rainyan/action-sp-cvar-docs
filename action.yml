@@ -22,13 +22,13 @@ inputs:
     default: 'utf-8'
   format_filename:
     description: 'Formatting for the code file name, with placeholder $a. This is skipped if parsing one single code file.'
-    default: '### $$a\n'
+    default: '### !a!\n'
   format_cvarname:
     description: 'Formatting for the cvar name, with placeholder $a.'
-    default: '* $$a\n'
+    default: '* !a!\n'
   format_cvarprop:
     description: 'Formatting for the cvar property, with placeholder $a (property name), and $b (property default value).'
-    default: '  * $$a: `$$b`\n'
+    default: '  * !a!: `!b!`\n'
 runs:
   using: 'composite'
   steps:
