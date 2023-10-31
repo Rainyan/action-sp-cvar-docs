@@ -7,6 +7,7 @@ inputs:
       Current working directory.
       Note that the default (.) is always treated as this Python script's directory,
       regardless of actual CWD; you must set the full path explicitly if this behaviour is undesired.
+    default: '.'
   code_patterns:
     description: 'RegEx pattern for code files to match.'
     default: '^.*\.(sp|inc|SP|INC)$'
