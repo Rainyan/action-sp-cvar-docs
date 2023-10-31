@@ -167,6 +167,7 @@ def main() -> None:
     working_dir = (
         os.path.dirname(os.path.realpath(__file__)) if args.cwd == "." else args.cwd
     )
+    print(f"SET AS: {working_dir} ({args.cwd})")
     assert os.path.isdir(working_dir)
 
     path_codes: list[os.PathLike | str] = []
