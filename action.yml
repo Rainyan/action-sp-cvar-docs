@@ -31,8 +31,6 @@ inputs:
     default: '  * !a!: `!b!`\n'
 runs:
   using: 'composite'
-  permissions:
-    contents: write
   steps:
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -50,6 +48,8 @@ runs:
         python -m pip install --upgrade -r "${{ github.action_path }}/requirements.txt"
 
     - name: Update documentation files
+      permissions:
+        contents: write
       shell: bash
       run: |
         if ${{ inputs.dry_run }}; then
