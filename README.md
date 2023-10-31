@@ -15,7 +15,7 @@ uses: Rainyan/action-sp-cvar-docs@vN
 ```
 where `N` is the [latest major tag](https://github.com/Rainyan/action-sp-cvar-docs/tags).
 
-The action will accept all of the optional arguments for the underlying [*document.py*](document.py) Python script (replace dashes with underlines for multi-word arguments) as input parameters:
+The action will accept all of the optional arguments for the underlying [*document.py*](document.py) script as input parameters. For any multi-word arguments, replace any dashes with underlines for the input parameters.
 ```
 usage: document.py [-h] [-C CODE_PATTERNS] [-D DOC_PATTERNS] [-H HEADER_PATTERNS] [--dry-run] [--encoding ENCODING] [--format-filename FORMAT_FILENAME] [--format-cvarname FORMAT_CVARNAME]
                    [--format-cvarprop FORMAT_CVARPROP]
@@ -49,7 +49,7 @@ For example:
 with:
   dry_run: true
 ```
-would use the dry-run mode, which only prints the change to stdout instead of writing it to file.
+would use the `--dry-run` mode, which only prints the change to stdout instead of writing it to file.
 
 For the input arguments' default values, see the [argument parser code](https://github.com/search?q=repo%3ARainyan%2Faction-sp-cvar-docs+ArgumentParser&type=code).
 
