@@ -68,7 +68,7 @@ runs:
       uses: stefanzweifel/git-auto-commit-action@v5
       with:
         commit_message: Update cvars documentation
-        file_pattern: '*.md *.MD'
+        file_pattern: '*.md'
 # Branding reference: https://haya14busa.github.io/github-action-brandings/
 branding:
   icon: 'book-open'
