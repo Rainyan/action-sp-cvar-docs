@@ -80,9 +80,9 @@ def update_readme(
         if len(codes_cvars) > 1:
             rawtext += format_filename.replace("$a", filename)
         for cvar in cvars:
-            print(cvar)
             skip = False
             for j, (name, val) in enumerate(cvar.items()):
+                print(f"{j}, name: {name} => '{val}'")
                 if skip:  # Skip values we don't have
                     skip = False
                     continue
@@ -195,9 +195,6 @@ def main() -> None:
     if (doc := purge_readme(md, doc_input, pattern_headers)) is None:
         return
     codes_cvars = {os.path.basename(a): sp_cvars.parse_cvars(a) for a in path_codes}
-
-    for a,b in codes_cvars.items():
-        print(a,b)
 
     doc_output = update_readme(
         md,
