@@ -66,3 +66,20 @@ This line will also be replaced.
 ### But the following header will persist.
 As will the text after it.
 ```
+
+#### Results:
+The action will update the README file:
+```md
+# Test
+Lorem ipsum.
+## Usage
+<!-- A header at any level will work, as long as it matches the --header_patterns regex -->
+### Cvars
+* foo
+  * Default value: `The default value`
+  * Description: `This variable adjusts the foo.`
+  * Min: `0.0`
+  * Max: `float(MaxClients)`
+### But the following header will persist.
+As will the text after it.
+```
