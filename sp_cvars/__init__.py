@@ -63,15 +63,15 @@ class Cvar:
         self._has_max: str = "".join(parms[6:7])
         self._max: str = "".join(parms[7:8])
 
-        if len(self._flags) == 0:
+        if len(self._flags) == 0 or self._flags == '""':
             self._flags = '"0"'
-        if len(self._has_min) == 0:
+        if len(self._has_min) == 0 or self._has_min == '""':
             self._has_min = '"false"'
-        if len(self._min) == 0:
+        if len(self._min) == 0 or self._min == '""':
             self._min = '"0.0"'
-        if len(self._has_max) == 0:
+        if len(self._has_max) == 0 or self._has_max == '""':
             self._has_max = '"false"'
-        if len(self._max) == 0:
+        if len(self._max) == 0 or self._max == '""':
             self._max = '"0.0"'
 
     def __iter__(self):

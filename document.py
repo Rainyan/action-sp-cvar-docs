@@ -14,7 +14,7 @@ from marko.md_renderer import MarkdownRenderer
 import sp_cvars
 
 
-VERSION = "1.0.0"
+VERSION = "1.0.1"
 
 
 def purge_readme(
