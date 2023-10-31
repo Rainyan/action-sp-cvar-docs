@@ -100,7 +100,6 @@ def update_readme(
                     if name == sp_cvars.CvarName.FLAGS and val == "0":
                         continue  # Skip no bit flags
                     rawtext += format_cvarprop.replace("!a!", name).replace("!b!", val)
-    rawtext = rawtext.replace("\\n", "\n")
 
     p = marko.block.Paragraph([])
     p.children.append(marko.inline.RawText(rawtext))  # type: ignore
@@ -206,9 +205,9 @@ def main() -> None:
         codes_cvars,
         doc,
         pattern_headers,
-        args.format_filename,
-        args.format_cvarname,
-        args.format_cvarprop,
+        args.format_filename.replace("\\n", "\n"),
+        args.format_cvarname.replace("\\n", "\n"),
+        args.format_cvarprop.replace("\\n", "\n"),
     )
     if args.dry_run:
         print(doc_output)
