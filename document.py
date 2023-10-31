@@ -92,6 +92,9 @@ def update_readme(
                 val = val.lstrip('"').rstrip('"')
                 print(val)
                 if j == 0:
+                    a = "$a"
+                    b = val
+                    print(f"  !! Attempting replace: '{a}', '{b}'")
                     rawtext += format_cvarname.replace("$a", val)
                     print(f"rawtext cvarname append: {rawtext}")
                 else:
