@@ -89,7 +89,7 @@ def update_readme(
 
                 val = val.lstrip('"').rstrip('"')
                 if j == 0:
-                    rawtext += format_cvarname.replace("!a!", val")
+                    rawtext += format_cvarname.replace("!a!", val)
                 else:
                     if name in (
                         sp_cvars.CvarName.HAS_MIN,
