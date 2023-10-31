@@ -192,6 +192,10 @@ def main() -> None:
     if (doc := purge_readme(md, doc_input, pattern_headers)) is None:
         return
     codes_cvars = {os.path.basename(a): sp_cvars.parse_cvars(a) for a in path_codes}
+
+    for a,b in code_cvars.items():
+        print(a,b)
+
     doc_output = update_readme(
         md,
         codes_cvars,
