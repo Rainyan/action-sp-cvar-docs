@@ -54,7 +54,7 @@ runs:
             dryrunarg="--dry-run"
         fi
         python "${{ github.action_path }}/document.py" \
-        --cwd "${{ inputs.cwd }}" \
+        "${{ inputs.cwd }}" \
         -C "${{ inputs.code_patterns }}" \
         -D "${{ inputs.doc_patterns }}" \
         -H "${{ inputs.header_patterns }}" \
