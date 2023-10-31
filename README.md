@@ -9,6 +9,12 @@ This action will scan all your SourcePawn code files (specified by `--code_patte
 ## Usage
 To get started, copy the *docs.yml* GitHub action from [the example](#Example).
 
+This action follows [SemVer](https://semver.org/), and offers binding to the latest major version, using:
+```yml
+uses: Rainyan/action-sp-cvar-docs@vN
+```
+where `N` is the [latest major tag](https://github.com/Rainyan/action-sp-cvar-docs/tags).
+
 The action will accept all of the optional arguments for the underlying *document.py* Python script (replace dashes with underlines for multi-word arguments) as input parameters:
 ```
 usage: document.py [-h] [-C CODE_PATTERNS] [-D DOC_PATTERNS] [-H HEADER_PATTERNS] [--dry-run] [--encoding ENCODING] [--format-filename FORMAT_FILENAME] [--format-cvarname FORMAT_CVARNAME]
