@@ -41,12 +41,11 @@ options:
 For example:
 ```yml
 with:
-  doc_patterns: '^.*\.(md|MD)$'
+  dry_run: true
 ```
-would match the first markdown file with any name, and the extension `.md` or `.MD`, instead of the default of just `README.md`.
+would use the dry-run mode, which only prints the change to stdout instead of writing it to file.
 
-For the defaults, see the [argument parser code](https://github.com/search?q=repo%3ARainyan%2Faction-sp-cvar-docs+ArgumentParser&type=code).
-
+For the input arguments' default values, see the [argument parser code](https://github.com/search?q=repo%3ARainyan%2Faction-sp-cvar-docs+ArgumentParser&type=code).
 
 ## Example
 ### Action file
@@ -77,8 +76,6 @@ jobs:
 
       - name: Update docs
         uses: Rainyan/action-sp-cvar-docs@v2
-        with:
-          dry_run: false
 ```
 
 ### Plugin file
