@@ -65,6 +65,7 @@ runs:
         $dryrunarg
 
     - name: Pull Remote Changes
+      shell: bash
       run: git pull
 
     - name: Commit changes
