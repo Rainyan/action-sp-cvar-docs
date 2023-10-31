@@ -150,17 +150,17 @@ def main() -> None:
     parser.add_argument(
         "--format-filename",
         help="Formatting for the code file name, with placeholder !a!. This is skipped if parsing one single code file.",
-        default="### !a!\\n",
+        default="### !a!\n",
     )
     parser.add_argument(
         "--format-cvarname",
         help="Formatting for the cvar name, with placeholder !a!.",
-        default="* !a!\\n",
+        default="* !a!\n",
     )
     parser.add_argument(
         "--format-cvarprop",
         help="Formatting for the cvar property, with placeholder !a! (property name), and !b! (property default value).",
-        default="  * !a!: `!b!`\\n",
+        default="  * !a!: `!b!`\n",
     )
     args = parser.parse_args()
 
