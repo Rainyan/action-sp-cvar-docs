@@ -162,10 +162,6 @@ def main() -> None:
     )
     args = parser.parse_args()
 
-    print(rf"{args.format_filename=}")
-    print(rf"{args.format_cvarname=}")
-    print(rf"{args.format_cvarprop=}")
-
     working_dir = (
         os.path.dirname(os.path.realpath(__file__)) if args.cwd == "" else args.cwd
     )
