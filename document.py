@@ -14,7 +14,7 @@ from marko.md_renderer import MarkdownRenderer
 import sp_cvars
 
 
-VERSION = "2.0.1"
+VERSION = "2.0.2"
 
 
 def purge_readme(
@@ -24,7 +24,7 @@ def purge_readme(
     it = iter(doc.children)
     i = 0
     target = None
-    while True:
+    while target is None:
         try:
             child = next(it)
             i += 1
@@ -33,20 +33,22 @@ def purge_readme(
             text = md.renderer.render_children(child)  # type: ignore
             if header_patterns.fullmatch(text):
                 target = child  # Find target header
-                next_child = next(it)
-                # TODO: other types
-                if not any(
-                    isinstance(next_child, a)
-                    for a in (
-                        marko.block.List,
-                        marko.block.Paragraph,
-                    )
-                ):
-                    continue
-                # Remove old content
-                for _ in range(len(next_child.children)):  # type: ignore
-                    next_child.children.pop()  # type: ignore
-                break
+                while True:
+                    next_child = next(it)
+                    if isinstance(next_child, marko.block.Heading):
+                        break
+                    # TODO: other types
+                    if not any(
+                        isinstance(next_child, a)
+                        for a in (
+                            marko.block.List,
+                            marko.block.Paragraph,
+                        )
+                    ):
+                        continue
+                    # Remove old content
+                    for _ in range(len(next_child.children)):  # type: ignore
+                        next_child.children.pop()  # type: ignore
         except StopIteration:
             break
     return doc if target is not None else None
