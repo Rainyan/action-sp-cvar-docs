@@ -67,6 +67,7 @@ runs:
     - name: Pull Remote Changes
       shell: bash
       run: git pull
+      if: (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master') && github.event_name == 'pull_request'
 
     - name: Commit changes
       uses: stefanzweifel/git-auto-commit-action@v5
