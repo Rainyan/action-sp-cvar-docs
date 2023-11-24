@@ -74,6 +74,8 @@ on:
       - '*.sp'
       - '*.inc'
       - '*.md'
+  pull_request:
+    branches: [ main, master ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
