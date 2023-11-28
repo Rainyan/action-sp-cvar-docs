@@ -6,6 +6,7 @@ import argparse
 import os
 import re
 import sys
+from collections import Counter
 from typing import Optional
 
 import marko
@@ -14,13 +15,14 @@ from marko.md_renderer import MarkdownRenderer
 import sp_cvars
 
 
-VERSION = "2.0.2"
+VERSION = "3.0.0"
 
 
 def purge_readme(
-    md: marko.Markdown, input: str, header_patterns
+    md: marko.Markdown, input: str, header_patterns, subheaders
 ) -> Optional[marko.block.Document]:
-    doc = md.parse(input)  # type: ignore
+    assert all(len(a) > 0 for a in subheaders)
+    doc = md.parse(input)
     it = iter(doc.children)
     i = 0
     target = None
@@ -30,15 +32,19 @@ def purge_readme(
             i += 1
             if not isinstance(child, marko.block.Heading):
                 continue
-            text = md.renderer.render_children(child)  # type: ignore
-            if header_patterns.fullmatch(text):
-                target = child  # Find target header
+            text = md.renderer.render_children(child)
+            if not header_patterns.fullmatch(text):
+                continue
+            target = child  # Find target header
+
+            inner_it = iter(doc.children[i:])
+            try:
                 while True:
-                    next_child = next(it)
+                    next_child = next(inner_it)
                     if isinstance(next_child, marko.block.Heading):
-                        break
-                    # TODO: other types
-                    if not any(
+                        if not any(a in md.render(next_child) for a in subheaders):  # type: ignore[arg-type]
+                            break
+                    elif not any(  # TODO: other types
                         isinstance(next_child, a)
                         for a in (
                             marko.block.List,
@@ -46,9 +52,10 @@ def purge_readme(
                         )
                     ):
                         continue
-                    # Remove old content
-                    for _ in range(len(next_child.children)):  # type: ignore
-                        next_child.children.pop()  # type: ignore
+                    next_child.children.clear()  # type: ignore[attr-defined]
+                    doc.children.pop(i)  # type: ignore[attr-defined]
+            except StopIteration:
+                break
         except StopIteration:
             break
     return doc if target is not None else None
@@ -68,7 +75,6 @@ def update_readme(
             continue
         text = md.renderer.render_children(child)  # type: ignore
         if header_patterns.fullmatch(text):
-            target = child  # Find target header
             break
     else:
         return md.render(doc)
@@ -103,9 +109,10 @@ def update_readme(
                         continue  # Skip no bit flags
                     rawtext += format_cvarprop.replace("!a!", name).replace("!b!", val)
 
-    p = marko.block.Paragraph([])
-    p.children.append(marko.inline.RawText(rawtext))  # type: ignore
-    doc.children.insert(i, p)  # type: ignore
+    if len(rawtext) > 0:
+        p = marko.block.Paragraph([])
+        p.children.append(marko.inline.RawText(rawtext))  # type: ignore
+        doc.children.insert(i, p)  # type: ignore
     return md.render(doc)
 
 
@@ -178,6 +185,7 @@ def main() -> None:
                 assert os.path.isfile(p)
                 path_codes.append(p)
     assert len(path_codes) > 0
+    assert all(n == 1 for n in Counter(path_codes).values())
 
     path_doc = None
     pattern_doc = re.compile(args.doc_patterns)
@@ -193,10 +201,15 @@ def main() -> None:
         doc_input = f.read()
 
     md = marko.Markdown(renderer=MarkdownRenderer)
+
+    subheaders = [os.path.basename(a) for a in path_codes]
     pattern_headers = re.compile(args.header_patterns)
-    if (doc := purge_readme(md, doc_input, pattern_headers)) is None:
+    if (doc := purge_readme(md, doc_input, pattern_headers, subheaders)) is None:
         return
-    codes_cvars = {os.path.basename(a): sp_cvars.parse_cvars(a) for a in path_codes}
+    codes_cvars = {
+        os.path.basename(a): sp_cvars.parse_cvars(b)
+        for a, b in zip(subheaders, path_codes)
+    }
 
     doc_output = update_readme(
         md,
