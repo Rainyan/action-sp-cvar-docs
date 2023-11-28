@@ -67,14 +67,13 @@ name: Update cvar docs
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
-  push:
+  pull_request:
     branches: [ main, master ]
     paths:
       - '.github/workflows/docs.yml'
       - '*.sp'
       - '*.inc'
       - '*.md'
-  pull_request:
     branches: [ main, master ]
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -88,7 +87,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Update docs
-        uses: Rainyan/action-sp-cvar-docs@v2
+        uses: Rainyan/action-sp-cvar-docs@v3
 ```
 
 ### Plugin file
