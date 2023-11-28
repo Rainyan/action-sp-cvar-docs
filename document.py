@@ -43,7 +43,6 @@ def purge_readme(
                     next_child = next(inner_it)
                     if isinstance(next_child, marko.block.Heading):
                         if not any(a in md.render(next_child) for a in subheaders):
-                            #print("BREAK!")
                             break
                     elif not any(  # TODO: other types
                         isinstance(next_child, a)
@@ -52,25 +51,9 @@ def purge_readme(
                             marko.block.Paragraph,
                         )
                     ):
-                        #print(f"SKIP: {md.render(next_child)}")
                         continue
-
-                    # for c in next_child.children:
-                    #     print(f'"{doc.children[i]}"')
-                    #     print(md.render(doc.children[i]))
-                    #     print("---")
-                    #     print(c)
-                    #     print(md.render(c))
-                    #     print()
                     next_child.children.clear()
                     doc.children.pop(i)
-                    #print(f'""{doc.children[i]}""')
-                    continue
-
-                    # Remove old content
-                    # for _ in range(len(next_child.children)):  # type: ignore
-                    #     next_child.children.pop()  # type: ignore
-                    # doc.children.pop(i)
             except StopIteration:
                 break
         except StopIteration:
