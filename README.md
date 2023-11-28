@@ -90,7 +90,7 @@ jobs:
 ```
 
 ### Plugin file
-Assuming there exists a `example.sp` file in the repo:
+Assuming there exists an `example.sp` file in the repo:
 ```sp
 #include <sourcemod>
 
