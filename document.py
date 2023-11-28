@@ -22,7 +22,7 @@ def purge_readme(
     md: marko.Markdown, input: str, header_patterns, subheaders
 ) -> Optional[marko.block.Document]:
     assert all(len(a) > 0 for a in subheaders)
-    doc = md.parse(input)  # type: ignore
+    doc = md.parse(input)
     it = iter(doc.children)
     i = 0
     target = None
@@ -32,7 +32,7 @@ def purge_readme(
             i += 1
             if not isinstance(child, marko.block.Heading):
                 continue
-            text = md.renderer.render_children(child)  # type: ignore
+            text = md.renderer.render_children(child)
             if not header_patterns.fullmatch(text):
                 continue
             target = child  # Find target header
@@ -42,7 +42,7 @@ def purge_readme(
                 while True:
                     next_child = next(inner_it)
                     if isinstance(next_child, marko.block.Heading):
-                        if not any(a in md.render(next_child) for a in subheaders):
+                        if not any(a in md.render(next_child) for a in subheaders):  # type: ignore[arg-type]
                             break
                     elif not any(  # TODO: other types
                         isinstance(next_child, a)
@@ -52,8 +52,8 @@ def purge_readme(
                         )
                     ):
                         continue
-                    next_child.children.clear()
-                    doc.children.pop(i)
+                    next_child.children.clear()  # type: ignore[attr-defined]
+                    doc.children.pop(i)  # type: ignore[attr-defined]
             except StopIteration:
                 break
         except StopIteration:
@@ -206,7 +206,10 @@ def main() -> None:
     pattern_headers = re.compile(args.header_patterns)
     if (doc := purge_readme(md, doc_input, pattern_headers, subheaders)) is None:
         return
-    codes_cvars = {os.path.basename(a): sp_cvars.parse_cvars(b) for a,b in zip(subheaders, path_codes)}
+    codes_cvars = {
+        os.path.basename(a): sp_cvars.parse_cvars(b)
+        for a, b in zip(subheaders, path_codes)
+    }
 
     doc_output = update_readme(
         md,
