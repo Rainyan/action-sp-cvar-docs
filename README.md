@@ -133,3 +133,6 @@ Lorem ipsum.
 ### But the following header will persist.
 As will the text after it.
 ```
+## Contribution
+PRs are most welcome! I'm mostly using this for my personal projects, but am publishing it here in case someone else also finds it useful.
+If you have any ideas on how to improve this tool, please do consider submitting a patch.
